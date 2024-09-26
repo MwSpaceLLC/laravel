@@ -15,8 +15,8 @@
         }
     ],
     "scripts": {
-        "post-package-install": [
-            "@php artisan mwspace:install"
+        "post-autoload-dump": [
+            "@php artisan package:discover --ansi"
         ]
     },
     "require": {
