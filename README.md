@@ -14,7 +14,7 @@ This command install the latest mwspace/laravel @package.
 
 > #### Init MwSpace Package:
 
-`@php artisan mwspace:install`
+`php artisan mwspace:install`
 
 This command install the skeleton of worker main app.
 
