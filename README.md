@@ -10,7 +10,13 @@
 
 `composer require mwspace/laravel`
 
-This command install the latest admin | require token
+This command install the latest mwspace/laravel @package.
+
+> #### Init MwSpace Package:
+
+`@php artisan mwspace:install`
+
+This command install the skeleton of worker main app.
 
 > #### Configure ENV worker:
 
@@ -22,7 +28,7 @@ IUBENDA_COOKIE_ID
 GOOGLE_SITE_VERIFICATION
 ```
 
-This command install the latest admin | require token
+This env is used on x-mwspace::html component.
 
 ----------------------
 Thank you for considering contributing to the MwSpace Company! The contribution can be found in
