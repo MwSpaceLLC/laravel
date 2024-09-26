@@ -61,6 +61,10 @@ class Install extends Command
             'mwspace publish...'
         );
 
+        spin(fn() => shell_exec('php artisan lang:publish'),
+            'lang publish...'
+        );
+
         spin(fn() => shell_exec('php artisan storage:link'),
             'storage link...'
         );
