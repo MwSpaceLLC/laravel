@@ -1,0 +1,45 @@
+{
+    "version": "1.0",
+    "name": "mwspace/laravel",
+    "description": "MwSpace module for manage website",
+    "keywords": [
+        "mwspace website module"
+    ],
+    "homepage": "https://www.mwspace.com",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "MwSpace llc, srl",
+            "email": "dev@mwspace.com",
+            "role": "Developer"
+        }
+    ],
+    "scripts": {
+        "post-package-install": [
+            "@php artisan mwspace:install"
+        ]
+    },
+    "require": {
+        "php": "^8.2",
+        "laravel/framework": "^10.10|^11.0",
+        "ext-libxml": "*",
+        "ext-mysqli": "*",
+        "ext-curl": "*",
+        "ext-dom": "*"
+    },
+    "autoload": {
+        "files": [
+            "src/helpers.php"
+        ],
+        "psr-4": {
+            "MwSpace\\Laravel\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "MwSpace\\Laravel\\ServiceProvider"
+            ]
+        }
+    }
+}
