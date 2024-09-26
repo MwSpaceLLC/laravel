@@ -21,11 +21,13 @@ This command install the skeleton of worker main app.
 > #### Configure ENV worker:
 
 ```dotenv
+APP_NAME
 MWSPACE_API_TOKEN
 GOOGLE_ANALYTICS
 IUBENDA_POLICY_ID
 IUBENDA_COOKIE_ID
 GOOGLE_SITE_VERIFICATION
+LOG_SLACK_WEBHOOK_URL
 ```
 
 This env is used on x-mwspace::html component.
