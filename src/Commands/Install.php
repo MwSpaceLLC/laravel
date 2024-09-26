@@ -113,6 +113,7 @@ class Install extends Command
             'IUBENDA_POLICY_ID' => '',
             'IUBENDA_COOKIE_ID' => '',
             'GOOGLE_SITE_VERIFICATION' => '',
+            'LOG_SLACK_WEBHOOK_URL' => '',
         ];
 
         foreach ($envVariables as $key => $value) {
