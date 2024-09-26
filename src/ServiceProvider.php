@@ -12,10 +12,14 @@
  *
  */
 
+use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\ServiceProvider as MineServiceProvider;
+
 use MwSpace\Laravel\Commands\Install;
 use MwSpace\Laravel\Commands\Languages;
 use MwSpace\Laravel\Commands\Update;
+use MwSpace\Laravel\Middleware\CacheResponse;
+use MwSpace\Laravel\Middleware\CompressHtml;
 use MwSpace\Laravel\Middleware\LangSwitcher;
 
 /**
@@ -28,9 +32,8 @@ class ServiceProvider extends MineServiceProvider
      *
      * @return void
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     * @throws Handler
      */
-    public function boot()
+    public function boot(): void
     {
         $this->checkRequirements();
 
@@ -63,7 +66,7 @@ class ServiceProvider extends MineServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->registerConfig();
 
@@ -100,8 +103,9 @@ class ServiceProvider extends MineServiceProvider
 
         if (!$this->app->runningInConsole()) {
 
-            // inject middleware before request | 3.8 has locales default routing
-            app('router')->prependMiddlewareToGroup('web', LangSwitcher::class);
+            $this->prependMiddlewareToGroup('web', LangSwitcher::class);
+            $this->appendMiddlewareToGroup('web', CompressHtml::class);
+//            $this->appendMiddlewareToGroup('web', CacheResponse::class);
 
         }
 
@@ -127,7 +131,7 @@ class ServiceProvider extends MineServiceProvider
     /**
      * Register the Artisan Commands
      */
-    private function registerCommands()
+    private function registerCommands(): void
     {
         $this->commands([
             Install::class,
@@ -141,7 +145,7 @@ class ServiceProvider extends MineServiceProvider
      *
      * @return void
      */
-    private function registerMigrations()
+    private function registerMigrations(): void
     {
         if ($this->app->runningInConsole()) {
             //
@@ -153,7 +157,7 @@ class ServiceProvider extends MineServiceProvider
      *
      * @return void
      */
-    private function registerViews()
+    private function registerViews(): void
     {
         $this->loadViewsFrom(
             __DIR__ . '/resources/views', 'mwspace'
@@ -165,7 +169,7 @@ class ServiceProvider extends MineServiceProvider
      *
      * @return void
      */
-    private function registerViewShare()
+    private function registerViewShare(): void
     {
         if (!$this->app->runningInConsole()) {
             $this->app->booted(function () {
@@ -226,7 +230,7 @@ class ServiceProvider extends MineServiceProvider
      *
      * @return void
      */
-    private function registerPublishing()
+    private function registerPublishing(): void
     {
         // publish assets
         $this->publishes(
@@ -236,6 +240,24 @@ class ServiceProvider extends MineServiceProvider
         $this->publishes(
             [__DIR__ . '/resources/views/errors' => resource_path('views/errors')], 'mwspace.errors'
         );
+    }
+
+    protected function prependMiddlewareToGroup($group, $middleware): void
+    {
+        $kernel = $this->app[Kernel::class];
+
+        foreach ((array)$middleware as $mw) {
+            $kernel->prependMiddlewareToGroup($group, $mw);
+        }
+    }
+
+    protected function appendMiddlewareToGroup($group, $middleware): void
+    {
+        $kernel = $this->app[Kernel::class];
+
+        foreach ((array)$middleware as $mw) {
+            $kernel->appendMiddlewareToGroup($group, $mw);
+        }
     }
 
 }

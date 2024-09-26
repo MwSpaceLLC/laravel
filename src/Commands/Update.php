@@ -52,7 +52,7 @@ class Update extends Command
          *
          */
         if (app()->version() < '11.0.0') {
-            $this->error('mwspace/admin engine require Laravel >= 11.0.0');
+            $this->error('mwspace/laravel engine require Laravel >= 11.0.0');
             return;
         }
 

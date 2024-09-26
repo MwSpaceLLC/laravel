@@ -108,6 +108,8 @@ class Install extends Command
             'APP_NAME' => 'MwSpace',
             'APP_TIMEZONE' => 'Europe/Rome',
             'APP_LOCALE' => 'it',
+            'CACHE_STORE' => 'file',
+
             'MWSPACE_API_TOKEN' => '',
             'GOOGLE_ANALYTICS' => '',
             'IUBENDA_POLICY_ID' => '',
