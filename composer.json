@@ -21,7 +21,7 @@
     },
     "require": {
         "php": "^8.2",
-        "laravel/framework": "^10.10|^11.0",
+        "laravel/framework": "^11.0",
         "ext-libxml": "*",
         "ext-mysqli": "*",
         "ext-curl": "*",
