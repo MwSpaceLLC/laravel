@@ -33,6 +33,13 @@ LOG_SLACK_WEBHOOK_URL
 This env is used on x-mwspace::html component.
 
 ----------------------
+
+> MwSpace Api Token REQUIRED
+
+If u want usa media content creation at MwSpace like **posts, pages, contacts and more**, u must subscribe and retrive your
+api token.
+
+----------------------
 Thank you for considering contributing to the MwSpace Company! The contribution can be found in
 the [MwSpace Website](https://mwspace.com/it).
 

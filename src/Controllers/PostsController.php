@@ -60,6 +60,9 @@ class PostsController extends Controller
      */
     public function post(...$parameters): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
     {
+        // Setta il locale per la query
+        $locale = app()->getLocale();
+
         $slug = end($parameters);
 
         $post = (object)$this->http->get("/posts/$slug")->json();
