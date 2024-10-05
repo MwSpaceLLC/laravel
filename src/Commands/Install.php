@@ -57,8 +57,12 @@ class Install extends Command
             return;
         }
 
-        spin(fn() => shell_exec('php artisan mwspace:publish'),
-            'mwspace publish...'
+        spin(fn() => shell_exec('php artisan vendor:publish --force --tag=mwspace.public'),
+            'mwspace publish public...'
+        );
+
+        spin(fn() => shell_exec('php artisan vendor:publish --force --tag=mwspace.errors'),
+            'mwspace publish errors...'
         );
 
         spin(fn() => shell_exec('php artisan lang:publish'),

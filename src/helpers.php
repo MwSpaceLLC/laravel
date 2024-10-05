@@ -61,3 +61,29 @@ if (!function_exists('__locales_prefix')) {
         return null;
     }
 }
+
+if (!function_exists('_route')) {
+
+    /**
+     * Generate the URL to a named route.
+     * @param $name
+     * @param $parameters
+     * @param $absolute
+     * @return mixed
+     */
+    function _route($name, $parameters = [], $absolute = true): mixed
+    {
+
+        if (__locales_exists()) {
+
+            if (is_array($parameters)) {
+                $parameters = array_merge($parameters, ['lang' => app()->getLocale()]);
+            } else {
+                $parameters = ['lang' => app()->getLocale(), $parameters];
+            }
+
+        }
+
+        return app('url')->route($name, $parameters, $absolute);
+    }
+}

@@ -13,17 +13,7 @@
  */
 
 use Illuminate\Support\Facades\Route;
-
-//use MwSpace\Admin\Controllers\Auth\AuthenticatedSessionController;
-//use MwSpace\Admin\Controllers\Auth\ConfirmablePasswordController;
-//use MwSpace\Admin\Controllers\Auth\EmailVerificationNotificationController;
-//use MwSpace\Admin\Controllers\Auth\EmailVerificationPromptController;
-//use MwSpace\Admin\Controllers\Auth\PasswordController;
-//use MwSpace\Admin\Controllers\Auth\VerifyEmailController;
-//use MwSpace\Admin\Controllers\Core\ProfileController;
-//use MwSpace\Admin\Controllers\Core\MediaController;
-//use MwSpace\Admin\Controllers\Core\DashboardController;
-//use MwSpace\Admin\Controllers\HooksController;
+use MwSpace\Laravel\Controllers\PostsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix(__locales_prefix())->middleware('web')->group(function () {
 
-    Route::name('mwspace.laravel.hooks.')->group(function () {
+    Route::name('mwspace.')->group(function () {
 
         Route::prefix('hooks')->group(function () {
 //            Route::post('/email', [HooksController::class, 'email'])->name('email');
@@ -56,10 +46,8 @@ Route::prefix(__locales_prefix())->middleware('web')->group(function () {
 //            ->name('product');
 
         // route for posts
-//        Route::get(__('/posts'), [HooksController::class, 'posts'])->name('posts');
-//        Route::get(__('/posts/{slug}'), [HooksController::class, 'post'])
-//            ->where('slug', '.*')
-//            ->name('post');
+        Route::get(__('/posts'), [PostsController::class, 'posts'])->name('posts');
+        Route::get(__('/posts/{slug}'), [PostsController::class, 'post'])->name('post');
 
         // route for offers
 //        Route::get(__('/offers'), [HooksController::class, 'offers'])->name('offers');
