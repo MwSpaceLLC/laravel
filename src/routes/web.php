@@ -46,8 +46,8 @@ Route::prefix(__locales_prefix())->middleware('web')->group(function () {
 //            ->name('product');
 
         // route for posts
-        Route::get(__('/posts'), [PostsController::class, 'posts'])->name('posts');
-        Route::get(__('/posts/{slug}'), [PostsController::class, 'post'])->name('post');
+        Route::get(__('/news'), [PostsController::class, 'posts'])->name('posts');
+        Route::get(__('/news/{slug}'), [PostsController::class, 'post'])->name('post');
 
         // route for offers
 //        Route::get(__('/offers'), [HooksController::class, 'offers'])->name('offers');
