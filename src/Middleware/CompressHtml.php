@@ -22,7 +22,7 @@ class CompressHtml
     {
         $response = $next($request);
 
-        if ($this->shouldCompress($response)) {
+        if (env('MWSPACE_DISABLE_COMPRESS_HTML') !== 'true' && $this->shouldCompress($response)) {
             $this->compressResponse($response);
         }
 

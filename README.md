@@ -30,6 +30,10 @@ IUBENDA_POLICY_ID
 IUBENDA_COOKIE_ID
 GOOGLE_SITE_VERIFICATION
 LOG_SLACK_WEBHOOK_URL
+
+# If u want disable compress html
+# MWSPACE_DISABLE_COMPRESS_HTML=true
+
 ```
 
 This env is used on x-mwspace::html component.
@@ -41,6 +45,7 @@ This env is used on x-mwspace::html component.
 If u want usa media content creation at MwSpace like **posts, pages, contacts and more**, u must subscribe and retrive
 your
 api token.
+
 
 ----------------------
 Thank you for considering contributing to the MwSpace Company! The contribution can be found in
