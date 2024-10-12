@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 use MwSpace\Laravel\Controllers\DefaultController;
 use MwSpace\Laravel\Controllers\HooksController;
 use MwSpace\Laravel\Controllers\PostsController;
+use MwSpace\Laravel\Controllers\SitemapGenerator;
 use Spatie\Honeypot\ProtectAgainstSpam;
 
 /*
@@ -28,6 +29,7 @@ use Spatie\Honeypot\ProtectAgainstSpam;
 | any other location as required by the application or its packages.
 |
 */
+
 Route::prefix(__locales_prefix())->middleware('web')->group(function () {
 
     // mwspace names routes
@@ -35,6 +37,7 @@ Route::prefix(__locales_prefix())->middleware('web')->group(function () {
 
         // magic hidden routes
         Route::get('/', [DefaultController::class, 'index'])->name('index');
+        Route::get('/sitemap.xml', [SitemapGenerator::class, 'index'])->name('sitemap');
         Route::get(__('/contatti'), [DefaultController::class, 'contacts'])->name('contacts');
 
         // hooks routes
