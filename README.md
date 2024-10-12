@@ -10,6 +10,8 @@
 
 `composer require mwspace/laravel`
 
+###### !!! INSTALL ON FRESH LARAVEL 11 APPLICATION !!!
+
 This command install the latest mwspace/laravel @package.
 
 > #### Init MwSpace Package:
@@ -36,7 +38,8 @@ This env is used on x-mwspace::html component.
 
 > MwSpace Api Token REQUIRED
 
-If u want usa media content creation at MwSpace like **posts, pages, contacts and more**, u must subscribe and retrive your
+If u want usa media content creation at MwSpace like **posts, pages, contacts and more**, u must subscribe and retrive
+your
 api token.
 
 ----------------------
