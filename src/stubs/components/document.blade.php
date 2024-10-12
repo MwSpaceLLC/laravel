@@ -1,4 +1,4 @@
-<x-mwspace::html :title="$title" :description="$description">
+<x-mwspace::html {{ $attributes }}>
 
     <x-slot:head>
         <link rel="preconnect" href="https://cdn.tailwindcss.com">

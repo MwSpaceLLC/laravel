@@ -13,7 +13,10 @@
  */
 
 use Illuminate\Support\Facades\Route;
+use MwSpace\Laravel\Controllers\DefaultController;
+use MwSpace\Laravel\Controllers\HooksController;
 use MwSpace\Laravel\Controllers\PostsController;
+use Spatie\Honeypot\ProtectAgainstSpam;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,10 +28,22 @@ use MwSpace\Laravel\Controllers\PostsController;
 | any other location as required by the application or its packages.
 |
 */
-
 Route::prefix(__locales_prefix())->middleware('web')->group(function () {
 
+    // mwspace names routes
     Route::name('mwspace.')->group(function () {
+
+        // magic hidden routes
+        Route::get('/', [DefaultController::class, 'index'])->name('index');
+        Route::get(__('/contatti'), [DefaultController::class, 'contacts'])->name('contacts');
+
+        // hooks routes
+        Route::name('hooks.')->group(function () {
+
+            // route for contact
+            Route::post(__('/contact'), [HooksController::class, 'contact'])->middleware(ProtectAgainstSpam::class)->name('contact');
+
+        });
 
         // route for posts
         Route::get(__('/news'), [PostsController::class, 'posts'])->name('posts');

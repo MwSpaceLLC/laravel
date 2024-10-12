@@ -62,6 +62,31 @@ if (!function_exists('__locales_prefix')) {
     }
 }
 
+if (!function_exists('_array_to_object')) {
+
+    /**
+     * @param $array
+     * @return string|stdClass|null
+     */
+    function _array_to_object($array): string|stdClass|null
+    {
+        if (!is_array($array)) {
+            return $array;
+        }
+
+        $object = new stdClass();
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                $object->$key = _array_to_object($value);
+            } else {
+                $object->$key = $value;
+            }
+        }
+        return $object;
+    }
+
+}
+
 if (!function_exists('_route')) {
 
     /**
@@ -85,5 +110,18 @@ if (!function_exists('_route')) {
         }
 
         return app('url')->route($name, $parameters, $absolute);
+    }
+}
+
+if (!function_exists('mwspace')) {
+
+    /**
+     * @return \Illuminate\Http\Client\PendingRequest
+     */
+    function mwspace(): \Illuminate\Http\Client\PendingRequest
+    {
+        return Illuminate\Support\Facades\Http::withToken(env('MWSPACE_API_TOKEN'))->baseUrl(
+            app()->environment('local') ? 'http://localhost:3000/api/public' : 'https://api.mwspace.dev'
+        );
     }
 }

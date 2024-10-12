@@ -14,19 +14,9 @@
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Client\ConnectionException;
-use Illuminate\Support\Facades\Http;
 
 class PostsController extends Controller
 {
-    private \Illuminate\Http\Client\PendingRequest $http;
-
-    public function __construct()
-    {
-        $this->http = Http::withToken(env('MWSPACE_API_TOKEN'))->baseUrl(
-            app()->environment('local') ? 'http://localhost:3000/api/public' : 'https://api.mwspace.dev'
-        );
-    }
-
     /**
      * @throws ConnectionException
      */
@@ -35,7 +25,7 @@ class PostsController extends Controller
         // Setta il locale per la query
         $locale = app()->getLocale();
 
-        $posts = $this->http->get('/posts')->collect()->map(function ($post) {
+        $posts = mwspace()->get('/posts')->collect()->map(function ($post) {
 
             // add permalink to the post
             $post['href'] = _route('mwspace.post', $post['permalink']);
@@ -65,7 +55,7 @@ class PostsController extends Controller
 
         $slug = end($parameters);
 
-        $post = (object)$this->http->get("/posts/$slug")->json();
+        $post = _array_to_object(mwspace()->get("/posts/$slug")->json());
 
         if (!file_exists(resource_path("views/post.blade.php"))) {
             return view("mwspace::post", [

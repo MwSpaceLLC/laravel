@@ -104,7 +104,7 @@ class ServiceProvider extends MineServiceProvider
         if (!$this->app->runningInConsole()) {
 
             $this->prependMiddlewareToGroup('web', LangSwitcher::class);
-            $this->appendMiddlewareToGroup('web', CompressHtml::class);
+//            $this->appendMiddlewareToGroup('web', CompressHtml::class);
 //            $this->appendMiddlewareToGroup('web', CacheResponse::class);
 
         }

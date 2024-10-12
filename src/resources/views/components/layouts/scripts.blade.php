@@ -1,7 +1,9 @@
-<script src="https://cdn.jsdelivr.net/gh/MwSpaceLLC/formSubmitLoading@1.2/formSubmitLoading.min.js"></script>
 <script type="text/javascript" src="https://cs.iubenda.com/autoblocking/{{env('IUBENDA_POLICY_ID')}}.js"></script>
 <script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id={{env('GOOGLE_ANALYTICS_ID')}}"></script>
 <script src="https://cdn.iubenda.com/iubenda.js"></script>
+<script src="https://www.google.com/recaptcha/api.js?render={{env('GOOGLE_RECAPTCHA_PUBLIC_KEY')}}"></script>
+
 <script type="text/javascript">
     const _iub = _iub || [];
     _iub.csConfiguration = {
@@ -32,7 +34,6 @@
 </script>
 
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id={{env('GOOGLE_ANALYTICS')}}"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
 
@@ -42,5 +43,78 @@
 
     gtag('js', new Date());
 
-    gtag('config', '{{env('GOOGLE_ANALYTICS')}}');
+    gtag('config', '{{env('GOOGLE_ANALYTICS_ID')}}');
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        // Seleziona tutti i form con la classe 'mw-contact-form'
+        const forms = document.querySelectorAll('form.mw-contact-form');
+
+        // azioni per il form
+        forms.forEach(form => {
+            // Seleziona tutti gli input e le textarea all'interno del form
+            const inputs = form.querySelectorAll('input');
+            const textareas = form.querySelectorAll('textarea');
+            const submitButton = form.querySelector('button[type="submit"]');
+
+            // Funzione per limitare la lunghezza
+            function limitLength(element, maxLength) {
+
+                if (element.name === 'name' || element.name === 'email' || element.name === 'message') {
+                    element.setAttribute('required', 'true')
+                }
+
+                element.addEventListener('input', function (e) {
+                    if (this.value.length > maxLength) {
+                        this.value = this.value.slice(0, maxLength);
+                    }
+                });
+            }
+
+            // Applica il limite di 250 caratteri agli input
+            inputs.forEach(input => limitLength(input, 100));
+
+            // Applica il limite di 500 caratteri alle textarea
+            textareas.forEach(textarea => limitLength(textarea, 500));
+
+            // Aggiungi l'evento onsubmit personalizzato
+            form.addEventListener('submit', function (e) {
+
+                // Disabilita il pulsante e aggiungi i puntini di caricamento
+                const originalButtonText = submitButton.textContent;
+                submitButton.disabled = true;
+                submitButton.textContent = originalButtonText + '...';
+
+                // Previeni l'invio immediato del form
+                e.preventDefault();
+
+                grecaptcha.ready(async () => {
+                    try {
+
+                        const token = await grecaptcha.execute('{{env('GOOGLE_RECAPTCHA_PUBLIC_KEY')}}', {action: 'submit'});
+
+                        // append the token
+                        const input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = 'g-recaptcha-response';
+                        input.value = token;
+                        form.appendChild(input);
+
+                        // submit the form
+                        form.submit();
+
+                    } catch (err) {
+                        console.error('Errore:', err);
+                        alert(err);
+                        submitButton.disabled = false;
+                        submitButton.textContent = originalButtonText;
+                    }
+                });
+
+            });
+
+        });
+    });
 </script>

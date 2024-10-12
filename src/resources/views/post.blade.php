@@ -1,6 +1,7 @@
-<x-document :title="$item->title" description="Scopri le nostre news">
+<x-document :title="$item->meta->title" :og-image="$item->meta->image" :description="$item->meta->description">
+
     <div class="py-12">
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <article class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
 
                 <div class="w-full aspect-w-16 aspect-h-9">
@@ -30,4 +31,5 @@
             </div>
         </div>
     </div>
+
 </x-document>

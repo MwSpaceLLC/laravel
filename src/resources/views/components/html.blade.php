@@ -10,38 +10,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
     <title>{!! $attributes->get('title') !!} | {{config('app.name')}}</title>
+
     <meta name="description" content="{!! $attributes->get('description') !!}">
 
-    <meta name="theme-color" content="{{$attributes->get('color')}}">
-    <meta name="msapplication-TileColor" content="{{$attributes->get('color')}}">
+    <meta name="theme-color" content="{{$attributes->get('color')??'#ffffff'}}">
+    <meta name="msapplication-TileColor" content="{{$attributes->get('color')??'#ffffff'}}">
 
     <meta name="robots" content="{{app()->environment('local')?'noindex, nofollow':'index, follow'}}"/>
-    <meta name="google-site-verification" content="{{env('GOOGLE_SITE_VERIFICATION')}}" />
+    <meta name="google-site-verification" content="{{env('GOOGLE_SITE_VERIFICATION')}}"/>
 
     <meta property="og:url" content="{{request()->url()}}"/>
     <meta property="og:title" content="{!! $attributes->get('title') !!}"/>
     <meta property="og:description" content="{!! $attributes->get('description') !!}"/>
-    <meta property="og:image" content="{{$attributes->get('card')??asset('/opengraph-image.png')}}"/>
+    <meta property="og:image" content="{{$attributes->get('og-image')??asset('/opengraph-image.png')}}"/>
 
     <meta name="twitter:card" content="summary_large_image"/>
     <meta name="twitter:title" content="{!! $attributes->get('title') !!}"/>
     <meta name="twitter:description" content="{!! $attributes->get('description') !!}"/>
-    <meta name="twitter:image" content="{{$attributes->get('card')??asset('/twitter-image.png')}}"/>
+    <meta name="twitter:image" content="{{$attributes->get('og-image')??asset('/twitter-image.png')}}"/>
 
-    <x-mwspace::layouts.json></x-mwspace::layouts.json>
+    <x-mwspace::layouts.json {{$attributes}}/>
 
-    <x-mwspace::layouts.styles></x-mwspace::layouts.styles>
+    {{$head??null}}
 
-    {{$head}}
+    {{$styles??null}}
 
 </head>
 
 <body class="{{$body->attributes->get('class')}}">
 
-{{$body}}
+{{$body??null}}
 
-<x-mwspace::layouts.errors></x-mwspace::layouts.errors>
+<x-mwspace::layouts.errors/>
 
-<x-mwspace::layouts.scripts></x-mwspace::layouts.scripts>
+<x-mwspace::layouts.scripts/>
+
+{{$script??null}}
+
 </body>
 </html>

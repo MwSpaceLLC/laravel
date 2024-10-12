@@ -110,16 +110,24 @@ class Install extends Command
 
         $envVariables = [
             'APP_NAME' => 'MwSpace',
+            'APP_URL' => 'http://127.0.0.1:8000',
             'APP_TIMEZONE' => 'Europe/Rome',
             'APP_LOCALE' => 'it',
             'CACHE_STORE' => 'file',
+            'SESSION_DRIVER' => 'database',
+            'DB_CONNECTION' => 'sqlite',
+            'MAIL_MAILER' => 'smtp',
+            'MAIL_PORT' => '1025',
+            'MAIL_CONTACT_INBOX' => 'hello@example.com',
 
             'MWSPACE_API_TOKEN' => '',
-            'GOOGLE_ANALYTICS' => '',
             'IUBENDA_POLICY_ID' => '',
             'IUBENDA_COOKIE_ID' => '',
-            'GOOGLE_SITE_VERIFICATION' => '',
             'LOG_SLACK_WEBHOOK_URL' => '',
+            'GOOGLE_ANALYTICS_ID' => '',
+            'GOOGLE_SITE_VERIFICATION' => '',
+            'GOOGLE_RECAPTCHA_PUBLIC_KEY' => '',
+            'GOOGLE_RECAPTCHA_SECRET_KEY' => '',
         ];
 
         foreach ($envVariables as $key => $value) {
@@ -157,10 +165,12 @@ class Install extends Command
             base_path('vendor/mwspace/laravel/src/stubs/components/document.blade.php'),
             base_path('resources/views/components/document.blade.php')
         );
-        File::copy(
-            base_path('vendor/mwspace/laravel/src/stubs/views/index.blade.php'),
-            base_path('resources/views/index.blade.php')
-        );
+
+        // index non serve | show at DefaultController:index()[mwspace::index]
+//        File::copy(
+//            base_path('vendor/mwspace/laravel/src/stubs/views/index.blade.php'),
+//            base_path('resources/views/index.blade.php')
+//        );
 
         // delete default file
         File::delete(
