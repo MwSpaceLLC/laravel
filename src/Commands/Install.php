@@ -121,8 +121,8 @@ class Install extends Command
             'MAIL_CONTACT_INBOX' => 'hello@example.com',
 
             'MWSPACE_API_TOKEN' => '',
+            'IUBENDA_SITE_ID' => '',
             'IUBENDA_POLICY_ID' => '',
-            'IUBENDA_COOKIE_ID' => '',
             'LOG_SLACK_WEBHOOK_URL' => '',
             'GOOGLE_ANALYTICS_ID' => '',
             'GOOGLE_SITE_VERIFICATION' => '',

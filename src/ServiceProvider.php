@@ -15,10 +15,10 @@
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\ServiceProvider as MineServiceProvider;
 
+use MwSpace\Laravel\Commands\Ai;
 use MwSpace\Laravel\Commands\Install;
 use MwSpace\Laravel\Commands\Languages;
 use MwSpace\Laravel\Commands\Update;
-use MwSpace\Laravel\Middleware\CacheResponse;
 use MwSpace\Laravel\Middleware\CompressHtml;
 use MwSpace\Laravel\Middleware\LangSwitcher;
 
@@ -134,6 +134,7 @@ class ServiceProvider extends MineServiceProvider
     private function registerCommands(): void
     {
         $this->commands([
+            Ai::class,
             Install::class,
             Languages::class,
             Update::class,

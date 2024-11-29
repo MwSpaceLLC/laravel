@@ -12,6 +12,8 @@
  *
  */
 
+use Illuminate\Support\Facades\File;
+
 if (!function_exists('composer')) {
 
     /**
@@ -122,6 +124,20 @@ if (!function_exists('mwspace')) {
     {
         return Illuminate\Support\Facades\Http::withToken(env('MWSPACE_API_TOKEN'))->baseUrl(
             app()->environment('local') ? 'http://localhost:3000/api/public' : 'https://api.mwspace.dev'
+        );
+    }
+}
+
+if (!function_exists('storage')) {
+
+    /**
+     * @param string $public_path
+     * @return \Symfony\Component\Finder\SplFileInfo[]
+     */
+    function storage(string $public_path = ''): array
+    {
+        return File::files(
+            public_path($public_path)
         );
     }
 }
