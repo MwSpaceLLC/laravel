@@ -39,6 +39,7 @@ Route::prefix(__locales_prefix())->middleware('web')->group(function () {
         Route::get('/', [DefaultController::class, 'index'])->name('index');
         Route::get('/sitemap.xml', [SitemapGenerator::class, 'index'])->name('sitemap');
         Route::get(__('/contatti'), [DefaultController::class, 'contacts'])->name('contacts');
+        Route::get(__('/chi-siamo'), [DefaultController::class, 'about'])->name('about');
 
         // hooks routes
         Route::name('hooks.')->group(function () {

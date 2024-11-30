@@ -36,4 +36,12 @@ class DefaultController extends Controller
 
     }
 
+    public function about()
+    {
+        abort_if(!file_exists(resource_path("views/about.blade.php")), 404);
+
+        return view("about");
+
+    }
+
 }

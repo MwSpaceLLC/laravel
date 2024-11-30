@@ -130,14 +130,16 @@ if (!function_exists('mwspace')) {
 
 if (!function_exists('storage')) {
 
-    /**
-     * @param string $public_path
-     * @return \Symfony\Component\Finder\SplFileInfo[]
-     */
-    function storage(string $public_path = ''): array
+    function storage(string $public_path = '')
     {
-        return File::files(
-            public_path($public_path)
-        );
+        $files = collect(File::files(public_path($public_path)));
+
+        return $files->map(function ($file) use ($public_path) {
+            return (object)[
+                'name' => $file->getFilename(),
+                'size' => $file->getSize(),
+                'src' => asset($public_path) . "/" . $file->getFilename(),
+            ];
+        });
     }
 }
