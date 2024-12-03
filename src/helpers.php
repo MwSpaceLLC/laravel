@@ -143,6 +143,7 @@ if (!function_exists('storage')) {
         });
     }
 }
+
 if (!function_exists('slugify')) {
 
     function slugify(string $string = '', string $separator = '-'): string
