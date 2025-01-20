@@ -151,3 +151,13 @@ if (!function_exists('slugify')) {
         return \Illuminate\Support\Str::slug($string, $separator);
     }
 }
+
+if (!function_exists('current_link')) {
+
+    function current_link(string $link): bool
+    {
+        $currentPath = request()->path();
+
+        return $currentPath === $link || str_starts_with($currentPath, $link . '/');
+    }
+}
