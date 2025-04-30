@@ -9,7 +9,7 @@
     const _iub = _iub || [];
     _iub.csConfiguration = {
         "askConsentAtCookiePolicyUpdate": true,
-        "floatingPreferencesButtonDisplay": "top-left",
+        "floatingPreferencesButtonDisplay": "{{env('IUBENDA_FLOATING_PREFERENCE','anchored-center-right')}}",
         "perPurposeConsent": true,
         "siteId": "{{env('IUBENDA_SITE_ID')}}",
         "cookiePolicyId": "{{env('IUBENDA_POLICY_ID')}}",
