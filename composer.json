@@ -1,5 +1,5 @@
 {
-    "version": "1.2.7",
+    "version": "1.2.8",
     "name": "mwspace/laravel",
     "description": "MwSpace module for manage website",
     "keywords": [
@@ -21,7 +21,7 @@
     },
     "require": {
         "php": "^8.2",
-        "laravel/framework": "^11.0",
+        "laravel/framework": "^11.0|^12.0",
         "spatie/laravel-honeypot": "^4.5.3",
         "spatie/laravel-sitemap": "^7.2.1",
         "ext-libxml": "*",
