@@ -40,7 +40,7 @@ class HooksController extends Controller
         $dynamicRules = [
             'name' => 'required|alpha_num:ascii|max:255',
             'email' => 'required|email|max:255',
-//            'g-recaptcha-response' => ['required', new RecaptchaRule],
+            'g-recaptcha-response' => ['required', new RecaptchaRule],
             'message' => [
                 'required',
                 'min:5',
@@ -79,8 +79,6 @@ class HooksController extends Controller
                 return $value !== null && $value !== '';
             }
         );
-
-//        dd($formData['email']);
 
         // invia la mail al proprietario del sito web
         Mail::to(explode(',', env('MAIL_CONTACT_INBOX')))->send(
