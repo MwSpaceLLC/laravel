@@ -1,8 +1,4 @@
 @if(env('IUBENDA_SITE_ID') !== null && env('IUBENDA_POLICY_ID') !== null)
-    <script type="text/javascript" src="https://cs.iubenda.com/autoblocking/{{env('IUBENDA_SITE_ID')}}.js"></script>
-    <script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>
-
-    <script src="https://cdn.iubenda.com/iubenda.js"></script>
     <script type="text/javascript">
         const _iub = _iub || [];
         _iub.csConfiguration = {
@@ -31,6 +27,24 @@
             }
         };
     </script>
+
+    <script type="text/javascript" src="https://cs.iubenda.com/autoblocking/{{env('IUBENDA_SITE_ID')}}.js"></script>
+    <script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>
+
+    <script type="text/javascript">(function (w, d) {
+            var loader = function () {
+                var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0];
+                s.src = "https://cdn.iubenda.com/iubenda.js";
+                tag.parentNode.insertBefore(s, tag);
+            };
+            if (w.addEventListener) {
+                w.addEventListener("load", loader, false);
+            } else if (w.attachEvent) {
+                w.attachEvent("onload", loader);
+            } else {
+                w.onload = loader;
+            }
+        })(window, document);</script>
 @endif
 
 @if(env('GOOGLE_ANALYTICS_ID') !== null)
