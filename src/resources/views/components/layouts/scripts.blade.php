@@ -1,6 +1,6 @@
 @if(env('IUBENDA_SITE_ID') !== null && env('IUBENDA_POLICY_ID') !== null)
     <script type="text/javascript">
-        const _iub = _iub || [];
+        var _iub = _iub || [];
         _iub.csConfiguration = {
             "askConsentAtCookiePolicyUpdate": true,
             "floatingPreferencesButtonDisplay": "{{env('IUBENDA_FLOATING_PREFERENCE','anchored-center-right')}}",
