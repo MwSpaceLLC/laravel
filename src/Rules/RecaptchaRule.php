@@ -45,6 +45,7 @@ class RecaptchaRule implements ValidationRule
             }
 
         } catch (\Exception $exception) {
+            Log::error($exception->getMessage());
             $fail('La verifica reCAPTCHA non funziona al momento.');
         }
 
