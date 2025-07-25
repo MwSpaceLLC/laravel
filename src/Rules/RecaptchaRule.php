@@ -36,7 +36,7 @@ class RecaptchaRule implements ValidationRule
                 'remoteip' => request()->ip()
             ]);
 
-            if (env('APP_ENV') === 'production') {
+            if (env('APP_ENV') != 'production') {
                 Log::info($response->object());
             }
 
