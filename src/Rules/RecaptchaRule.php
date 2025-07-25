@@ -30,11 +30,12 @@ class RecaptchaRule implements ValidationRule
     {
 
         try {
-            $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
-                'secret' => env('GOOGLE_RECAPTCHA_SECRET_KEY'),
-                'response' => $value,
-                'remoteip' => request()->ip()
-            ]);
+            $response = Http::withOptions(['verify' => false])
+                ->post('https://www.google.com/recaptcha/api/siteverify', [
+                    'secret' => env('GOOGLE_RECAPTCHA_SECRET_KEY'),
+                    'response' => $value,
+                    'remoteip' => request()->ip()
+                ]);
 
             if (env('APP_ENV') != 'production') {
                 Log::info($response->object());
