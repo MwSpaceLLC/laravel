@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Validator;
 use MwSpace\Laravel\Mail\ContactFormSendMail;
 use MwSpace\Laravel\Rules\RecaptchaRule;
 use MwSpace\Laravel\Rules\SpamMessageRule;
+use MwSpace\Laravel\Sdk\OpenAIModerationAPI;
 
 class HooksController extends Controller
 {
@@ -38,7 +39,7 @@ class HooksController extends Controller
 
         // Crea un array di regole dinamiche
         $dynamicRules = [
-            'name' => 'required|alpha_num:ascii|max:255',
+            'name' => 'required|max:255',
             'email' => 'required|email|max:255',
             'g-recaptcha-response' => ['required', new RecaptchaRule],
             'message' => [
@@ -80,8 +81,26 @@ class HooksController extends Controller
             }
         );
 
+        if (config('mwspace.openai.token') !== null) {
+            // Inject Open AI Moderation
+            $OpenAiModeration = new OpenAIModerationAPI();
+
+            // spam checker from AI
+            if ($OpenAiModeration->isSpam($formData)) {
+
+                // Ottieni i dettagli completi
+                $details = $OpenAiModeration->getResults();
+
+                return back()->withErrors(['spam' => $details['reason'] ?? 'Contenuto non appropriato']);
+            }
+        }
+
+        dd($formData);
+
+        $mailable = explode(',', config('mwspace.form.inbox'));
+
         // invia la mail al proprietario del sito web
-        Mail::to(explode(',', env('MAIL_CONTACT_INBOX')))->send(
+        Mail::to($mailable)->send(
             new ContactFormSendMail($formData)
         );
 

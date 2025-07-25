@@ -114,20 +114,28 @@ class Install extends Command
             'APP_TIMEZONE' => 'Europe/Rome',
             'APP_LOCALE' => 'it',
             'CACHE_STORE' => 'file',
-            'SESSION_DRIVER' => 'database',
+            'SESSION_DRIVER' => 'file',
             'DB_CONNECTION' => 'sqlite',
             'MAIL_MAILER' => 'smtp',
             'MAIL_PORT' => '1025',
             'MAIL_CONTACT_INBOX' => 'hello@example.com',
 
             'MWSPACE_API_TOKEN' => '',
+            'MWSPACE_DISABLE_PRIVACY_FORM' => '',
+            'MWSPACE_DISABLE_RECAPTCHA' => '',
+            'MWSPACE_DISABLE_COMPRESS_HTML' => '',
+
             'IUBENDA_SITE_ID' => '',
             'IUBENDA_POLICY_ID' => '',
+            'IUBENDA_FLOATING_PREFERENCE' => '',
+
             'LOG_SLACK_WEBHOOK_URL' => '',
+
             'GOOGLE_ANALYTICS_ID' => '',
             'GOOGLE_SITE_VERIFICATION' => '',
             'GOOGLE_RECAPTCHA_PUBLIC_KEY' => '',
             'GOOGLE_RECAPTCHA_SECRET_KEY' => '',
+
         ];
 
         foreach ($envVariables as $key => $value) {

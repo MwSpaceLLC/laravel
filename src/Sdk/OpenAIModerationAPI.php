@@ -1,6 +1,16 @@
-<?php
+<?php namespace MwSpace\Laravel\Sdk;
 
-namespace MwSpace\Laravel\Sdk;
+/**
+ * @copyright 2025 | MwSpace llc, srl
+ * @package mwspace/laravel
+ * @author Aleksandr Ivanovitch
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ *
+ * @license http://www.apache.org/licenses/LICENSE-2.0
+ *
+ */
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -39,7 +49,7 @@ class OpenAIModerationAPI
      */
     public function __construct()
     {
-        $this->apiKey = config('services.openai.key', env('OPENAI_API_KEY'));
+        $this->apiKey = config('services.openai.key', config('mwspace.openai.token'));
         $this->model = config('services.openai.model', 'gpt-4.1-nano');
     }
 
@@ -128,6 +138,11 @@ class OpenAIModerationAPI
             $result = $response->json();
 
             $content = $result['choices'][0]['message']['content'] ?? '{}';
+
+            if (config('app.debut')) {
+                // Debug della risposta
+                Log::info('OpenAIModerationAPI response: ', json_decode($content, true));
+            }
 
             // Decodifica la risposta JSON
             $this->results = json_decode($content, true);

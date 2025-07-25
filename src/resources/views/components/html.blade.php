@@ -17,7 +17,7 @@
     <meta name="msapplication-TileColor" content="{{$attributes->get('color')??'#ffffff'}}">
 
     <meta name="robots" content="{{app()->environment('local')?'noindex, nofollow':'index, follow'}}"/>
-    <meta name="google-site-verification" content="{{env('GOOGLE_SITE_VERIFICATION')}}"/>
+    <meta name="google-site-verification" content="{{config('mwspace.google.site_verification')}}"/>
 
     <meta property="og:url" content="{{request()->url()}}"/>
     <meta property="og:title" content="{!! $attributes->get('title') !!}"/>

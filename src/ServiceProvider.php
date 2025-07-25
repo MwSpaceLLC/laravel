@@ -213,7 +213,10 @@ class ServiceProvider extends MineServiceProvider
      */
     private function registerConfig()
     {
-        //
+        $this->mergeConfigFrom(
+            __DIR__ . '/config/services.php.php',
+            'mwspace'
+        );
     }
 
     /**
@@ -233,14 +236,23 @@ class ServiceProvider extends MineServiceProvider
      */
     private function registerPublishing(): void
     {
-        // publish assets
-        $this->publishes(
-            [__DIR__ . '/public' => public_path()], 'mwspace.public'
-        );
+        if ($this->app->runningInConsole()) {
 
-        $this->publishes(
-            [__DIR__ . '/resources/views/errors' => resource_path('views/errors')], 'mwspace.errors'
-        );
+            $this->publishes([
+                __DIR__ . '/config/services.php' => config_path('mwspace.php'),
+            ], 'config');
+
+            // publish assets
+            $this->publishes(
+                [__DIR__ . '/public' => public_path()], 'mwspace.public'
+            );
+
+            $this->publishes(
+                [__DIR__ . '/resources/views/errors' => resource_path('views/errors')], 'mwspace.errors'
+            );
+
+        }
+
     }
 
     protected function prependMiddlewareToGroup($group, $middleware): void

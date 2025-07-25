@@ -122,8 +122,8 @@ if (!function_exists('mwspace')) {
      */
     function mwspace(): \Illuminate\Http\Client\PendingRequest
     {
-        return Illuminate\Support\Facades\Http::withToken(env('MWSPACE_API_TOKEN'))->baseUrl(
-            app()->environment('local') ? 'http://localhost:3000/api/public' : 'https://api.mwspace.dev'
+        return Illuminate\Support\Facades\Http::withToken(config('mwspace.api.token'))->baseUrl(
+            app()->environment('local') ? 'http://localhost:3000/api/public' : 'https://api.mwspace.com'
         );
     }
 }

@@ -30,12 +30,20 @@ class RecaptchaRule implements ValidationRule
     {
 
         try {
-            $response = Http::withOptions(['verify' => false])
+
+            $response = Http::asForm()
                 ->post('https://www.google.com/recaptcha/api/siteverify', [
-                    'secret' => env('GOOGLE_RECAPTCHA_SECRET_KEY'),
+                    'secret' => config('mwspace.google.recaptcha.key'),
                     'response' => $value,
                     'remoteip' => request()->ip()
                 ]);
+
+            if (config('app.debug')) {
+                Log::info('RecaptchaRule value: ' . $value);
+
+                // Debug della risposta
+                Log::info('Recaptcha response: ', $response->json());
+            }
 
             if (!$response->object()->success) {
                 $fail('La verifica reCAPTCHA non è riuscita. Per favore, riprova.');

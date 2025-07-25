@@ -22,7 +22,7 @@ class SitemapGenerator extends Controller
 
     private function writeSitemap(): void
     {
-        Sitemap::create(env('APP_URL'))
+        Sitemap::create(config('app.url'))
             ->configureCrawler(fn(Crawler $crawler) => $crawler->ignoreRobots())
             ->getSitemap()->writeToFile(public_path('index-sitemap.xml'));
     }

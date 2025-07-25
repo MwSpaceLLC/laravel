@@ -1,12 +1,12 @@
-@if(env('IUBENDA_SITE_ID') !== null && env('IUBENDA_POLICY_ID') !== null)
+@if(config('mwspace.iubenda.site_id') && config('mwspace.iubenda.policy_id'))
     <script type="text/javascript">
         var _iub = _iub || [];
         _iub.csConfiguration = {
             "askConsentAtCookiePolicyUpdate": true,
-            "floatingPreferencesButtonDisplay": "{{env('IUBENDA_FLOATING_PREFERENCE','anchored-center-right')}}",
+            "floatingPreferencesButtonDisplay": "{{config('mwspace.iubenda.floating')}}",
             "perPurposeConsent": true,
-            "siteId": "{{env('IUBENDA_SITE_ID')}}",
-            "cookiePolicyId": "{{env('IUBENDA_POLICY_ID')}}",
+            "siteId": "{{config('mwspace.iubenda.site_id')}}",
+            "cookiePolicyId": "{{config('mwspace.iubenda.policy_id')}}",
             "lang": "it",
             "banner": {
                 "acceptButtonCaptionColor": "#FFFFFF",
@@ -28,7 +28,8 @@
         };
     </script>
 
-    <script type="text/javascript" src="https://cs.iubenda.com/autoblocking/{{env('IUBENDA_SITE_ID')}}.js"></script>
+    <script type="text/javascript"
+            src="https://cs.iubenda.com/autoblocking/{{config('mwspace.iubenda.site_id')}}.js"></script>
     <script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>
 
     <script type="text/javascript">(function (w, d) {
@@ -47,8 +48,8 @@
         })(window, document);</script>
 @endif
 
-@if(env('GOOGLE_ANALYTICS_ID') !== null)
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{env('GOOGLE_ANALYTICS_ID')}}"></script>
+@if(config('mwspace.google.analytics_id'))
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{config('mwspace.google.analytics_id')}}"></script>
 
     <!-- Google tag (gtag.js) -->
     <script>
@@ -60,10 +61,6 @@
 
         gtag('js', new Date());
 
-        gtag('config', '{{env('GOOGLE_ANALYTICS_ID')}}');
+        gtag('config', '{{config('mwspace.google.analytics_id')}}');
     </script>
-@endif
-
-@if(env('GOOGLE_RECAPTCHA_PUBLIC_KEY') !== null)
-    <script src="https://cdn.mwspace.com/script/g.reCAPTCHA.min.js"></script>
 @endif
