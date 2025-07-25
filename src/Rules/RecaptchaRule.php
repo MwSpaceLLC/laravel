@@ -38,7 +38,7 @@ class RecaptchaRule implements ValidationRule
                 ]);
 
             if (env('APP_ENV') != 'production') {
-                Log::info($response->object());
+                Log::info(json_encode($response->object(), JSON_PRETTY_PRINT));
             }
 
             if (!$response->object()->success) {
