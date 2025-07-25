@@ -37,10 +37,6 @@ class RecaptchaRule implements ValidationRule
                     'remoteip' => request()->ip()
                 ]);
 
-            if (env('APP_ENV') != 'production') {
-                Log::info(json_encode($response->object(), JSON_PRETTY_PRINT));
-            }
-
             if (!$response->object()->success) {
                 $fail('La verifica reCAPTCHA non è riuscita. Per favore, riprova.');
             }
