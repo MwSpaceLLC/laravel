@@ -16,6 +16,7 @@ use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class RecaptchaRule implements ValidationRule
 {
@@ -34,6 +35,10 @@ class RecaptchaRule implements ValidationRule
                 'response' => $value,
                 'remoteip' => request()->ip()
             ]);
+
+            if (env('APP_ENV') === 'production') {
+                Log::info($response->object());
+            }
 
             if (!$response->object()->success) {
                 $fail('La verifica reCAPTCHA non è riuscita. Per favore, riprova.');
