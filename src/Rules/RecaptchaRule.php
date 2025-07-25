@@ -33,7 +33,7 @@ class RecaptchaRule implements ValidationRule
 
             $response = Http::asForm()
                 ->post('https://www.google.com/recaptcha/api/siteverify', [
-                    'secret' => config('mwspace.google.recaptcha.key'),
+                    'secret' => config('mwspace.google.recaptcha.secret'),
                     'response' => $value,
                     'remoteip' => request()->ip()
                 ]);

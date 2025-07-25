@@ -35,6 +35,7 @@ class ServiceProvider extends MineServiceProvider
      */
     public function boot(): void
     {
+
         $this->checkRequirements();
 
         $this->registerHelpers();
@@ -59,6 +60,8 @@ class ServiceProvider extends MineServiceProvider
 
         // merge config at runtime
         $this->configRuntime();
+
+//        dd(config()->all());
     }
 
     /**
@@ -214,7 +217,7 @@ class ServiceProvider extends MineServiceProvider
     private function registerConfig()
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/config/services.php.php',
+            __DIR__ . '/config/services.php',
             'mwspace'
         );
     }
